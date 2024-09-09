@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MyApplication</string>
+    <string name="txt_view">Registrarse</string>
+    <string name="txt_name">Nombre</string>
+    <string name="txt_email">Correo</string>
+    <string name="txt_password">Contraseña</string>
+    <string name="txt_password2">Confirmar Contraseña</string>
+    <string name="button_Registrar">Registrar</string>
+    <string name="button_login">Login</string>
+</resources>
