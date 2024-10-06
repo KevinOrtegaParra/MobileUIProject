@@ -9,9 +9,13 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.database.SQLiteHelper;
+import com.example.myapplication.modelo.User;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText etName, etEmail, etPassword, etPassword2;
+    SQLiteHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,8 @@ public class RegisterActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.txt_password);
         etPassword2 = findViewById(R.id.txt_Password2);
 
+        dbHelper = new SQLiteHelper(this);
+
     }
 
     public void singUp(View view){
@@ -32,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
         String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
         String password2 = etPassword2.getText().toString();
+        User newUser = new User(0, name, email, password);
 
         if(name.isEmpty()){
             Toast.makeText(this, "Ingrese el Nombre", Toast.LENGTH_LONG).show();
@@ -47,7 +54,12 @@ public class RegisterActivity extends AppCompatActivity {
         }
         if(!(name.isEmpty() || email.isEmpty() || password.isEmpty() || password2.isEmpty())){
             if(password.equals(password2)){
-                Toast.makeText(this, "Registro Exitoso!", Toast.LENGTH_LONG).show();
+                if (dbHelper.addUser(newUser)) {
+                    Toast.makeText(this, "Usuario registrado", Toast.LENGTH_SHORT).show();
+                    finish();
+                }else{
+                    Toast.makeText(this, "Error al registrar usuario", Toast.LENGTH_SHORT).show();
+                }
             }else{
                 Toast.makeText(this, "La contraseña es diferente", Toast.LENGTH_LONG).show();
             }
